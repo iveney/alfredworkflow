@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.ivansiu.ip2location</string>
+	<key>connections</key>
+	<dict>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>733094CD-E4A2-4B40-8CE3-A9B6960C2FDD</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Ivan Siu</string>
+	<key>description</key>
+	<string>Get IP geography location</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Get IP location</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>loc</string>
+				<key>runningsubtext</key>
+				<string>Checking IP location...</string>
+				<key>script</key>
+				<string>require_once('ip2locationlite.class.php');
+require_once('workflows.php');
+
+$w = new Workflows();
+if ("{query}" == "")
+  $ip = file_get_contents('http://icanhazip.com');
+else
+  $ip = urlencode( "{query}" );
+
+if(!$_COOKIE["geolocation"]){
+  $ipLite = new ip2location_lite;
+  $ipLite-&gt;setKey('set-your-key');
+ 
+  $visitorGeolocation = $ipLite-&gt;getCity($ip);
+
+} else {
+  $visitorGeolocation = unserialize(base64_decode($_COOKIE["geolocation"]));
+}
+
+$uid = "ip2location";
+$sub = "Location of IP: ".$visitorGeolocation['ipAddress']. " (Press Enter to paste, or Cmd+C to copy)";
+
+if ($visitorGeolocation['statusCode'] == 'OK') {
+  //Set geolocation cookie
+  $data = base64_encode(serialize($visitorGeolocation));
+  setcookie("geolocation", $data, time()+3600*24*7); //set cookie for 1 week
+
+  $title = $visitorGeolocation['cityName'] .', '.
+           $visitorGeolocation['regionName']. ' '.
+           $visitorGeolocation['zipCode']. ', '.
+           $visitorGeolocation['countryName'];
+  $title = ucwords(strtolower($title));
+  $arg = $title;
+  $icon = "icon.png";
+
+  $w-&gt;result($uid, $arg, $title, $sub, $icon);
+} else {
+  $w-&gt;result($uid, $arg, "Failed... check your connection.", $sub, $icon);
+}
+
+echo $w-&gt;toxml();</string>
+				<key>subtext</key>
+				<string>Check IP geography location (empty to check external IP)</string>
+				<key>title</key>
+				<string>IP location</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>733094CD-E4A2-4B40-8CE3-A9B6960C2FDD</string>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.output.largetype</string>
+			<key>uid</key>
+			<string>F94ABFDF-A060-4A36-86E7-4276CA9FB24E</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Using API of:
+
+http://ipinfodb.com/ip_location_api.php</string>
+	<key>uidata</key>
+	<dict>
+		<key>733094CD-E4A2-4B40-8CE3-A9B6960C2FDD</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>F94ABFDF-A060-4A36-86E7-4276CA9FB24E</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://iveney.github.com</string>
+</dict>
+</plist>
