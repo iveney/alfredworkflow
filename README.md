@@ -23,3 +23,10 @@ This is only useful for UIUC students.
 Use shortcut `⌥⇧⌘+P` to append selected URL to proxy url and open in default browsers. [More information](https://proxy2.library.illinois.edu/menu)
 
 [Download](http://d.pr/f/tCRn)
+
+Urban Dictionary
+----------------
+
+Search definition from urban dictionary.
+
+[Download](http://d.pr/f/yQy9)
