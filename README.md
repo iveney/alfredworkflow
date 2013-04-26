@@ -14,7 +14,7 @@ IP address to location
 Find geography location of IP address. Default is your external IP address.
 Note that you need to [register](http://ipinfodb.com/register.php) your own API and replace the key in the script.  
 
-[Download](http://d.pr/f/FoyO)
+[Download](http://d.pr/f/UPRQ)
 
 Proxy open selected URL
 -----------------------
@@ -29,4 +29,4 @@ Urban Dictionary
 
 Search definition from urban dictionary.
 
-[Download](http://d.pr/f/yQy9)
+[Download](http://d.pr/f/rzJj)
