@@ -16,7 +16,7 @@ Note that you need to [register](http://ipinfodb.com/register.php) your own API 
 
 ![IP location](http://i.imgur.com/zjwrxtC.png)
 
-[Download](http://d.pr/f/UPRQ)
+[Download](http://d.pr/f/qdUn)
 
 Proxy open selected URL
 -----------------------
